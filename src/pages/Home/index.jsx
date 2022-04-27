@@ -9,7 +9,7 @@ import "./index.scss";
 export default function Home() {
   let [isHistory, setIsHistory] = useState(true);
   let [historyList, setHistoryList] = useState([]);
-  let search = forwardRef();
+  let search = useRef();
 
   // 显示历史组件
   function showHistory() {
