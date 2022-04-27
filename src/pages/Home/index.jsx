@@ -2,7 +2,7 @@ import Title from "../Title";
 import Search from "../Search";
 import History from "../History";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import "./index.scss";
 
@@ -11,6 +11,10 @@ export default function Home() {
   let [historyList, setHistoryList] = useState([]);
   let search = useRef();
   const childFunc = useRef(null);
+  // 从localStorage获取历史记录
+  useEffect(() => {
+    setHistoryList(JSON.parse(localStorage.getItem("historyList")));
+  }, []);
 
   // 显示历史组件
   function showHistory() {
@@ -25,25 +29,20 @@ export default function Home() {
     setHistoryList((arr) => {
       arr = arr.filter((i) => i !== item);
       arr.unshift(item);
+      localStorage.setItem("historyList", JSON.stringify(arr));
       return arr;
     });
   }
   // 删除历史记录
   function delHistory(title) {
-    setHistoryList(historyList.filter((item) => item !== title));
+    let newArr = historyList.filter((item) => item !== title);
+    setHistoryList(newArr);
+    localStorage.setItem("historyList", JSON.stringify(newArr));
   }
   // 接受history组件的数据，再操作history的兄弟组件search
   function getFromHistory(item) {
-    // setBus(item);
-    // search.current.inp.current.value = item;
-    // search.current.userSearch();
     childFunc.current(item);
   }
-  // 传数据给search组件
-  // function toSearch() {
-  //   search.current.inp.current.value = bus;
-  //   search.current.userSearch();
-  // }
   return (
     <div id="home">
       <Title></Title>

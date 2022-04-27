@@ -18,6 +18,7 @@ export default forwardRef(function Search(props, ref) {
   function complex(item) {
     inp.current.value = item;
     userSearch();
+    inp.current.focus();
   }
   // 输入事件
   function userSearch(e) {
@@ -110,3 +111,7 @@ export default forwardRef(function Search(props, ref) {
     </div>
   );
 });
+
+// function Test() {
+//   return <div>{dataList.length <= 3 ? <div className="res-footer">已显示全部结果</div> : ""}</div>;
+// }
