@@ -1,16 +1,24 @@
 import "./index.scss";
-import { useState, useRef } from "react";
+import { useState, useRef, forwardRef, useEffect } from "react";
 
 import Movie from "../Movie";
 
 const axios = require("axios");
 
-export default function Search(props) {
+export default forwardRef(function Search(props, ref) {
   const [userInput, setUserInput] = useState("");
   const [dataList, setDataList] = useState([]);
   const [count, setCount] = useState(0);
   const [footerShowed, setFooterShowed] = useState(true);
   const inp = useRef();
+  useEffect(() => {
+    props.childFunc.current = complex;
+  });
+  // 复杂通信回调
+  function complex(item) {
+    inp.current.value = item;
+    userSearch();
+  }
   // 输入事件
   function userSearch(e) {
     setFooterShowed(true);
@@ -46,6 +54,7 @@ export default function Search(props) {
   }
   // 显示全部搜索结果
   function showAllResult() {
+    props.addHistory(userInput);
     axios.get("http://localhost:3000/db.json").then((res) => {
       const regexp = new RegExp(userInput);
       let result = res.data.filter((x) => regexp.test(x.title));
@@ -53,15 +62,6 @@ export default function Search(props) {
       setFooterShowed(false);
     });
   }
-  // 兄弟通信回调
-  // function clickSearch() {
-  //   axios.get("http://localhost:3000/db.json").then((res) => {
-  //     const regexp = new RegExp(userInput);
-  //     let result = res.data.filter((x) => regexp.test(x.title));
-  //     setCount(result.length);
-  //     setDataList(result.slice(0, 3));
-  //   });
-  // }
   return (
     <div className="search-mod">
       <div id="search">
@@ -109,4 +109,4 @@ export default function Search(props) {
       )}
     </div>
   );
-}
+});

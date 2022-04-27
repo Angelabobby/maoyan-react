@@ -14,6 +14,10 @@
       color: #222;
       font-size: 17px;
       font-weight: 700;
+      width: 213px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .ori-title,
     .category,
@@ -21,6 +25,10 @@
       font-size: 13px;
       color: #666;
       margin-top: 4px;
+      width: 213px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
   .score {

@@ -2,7 +2,7 @@ import Title from "../Title";
 import Search from "../Search";
 import History from "../History";
 
-import { useState, useRef, forwardRef } from "react";
+import { useState, useRef } from "react";
 
 import "./index.scss";
 
@@ -10,6 +10,7 @@ export default function Home() {
   let [isHistory, setIsHistory] = useState(true);
   let [historyList, setHistoryList] = useState([]);
   let search = useRef();
+  const childFunc = useRef(null);
 
   // 显示历史组件
   function showHistory() {
@@ -34,8 +35,9 @@ export default function Home() {
   // 接受history组件的数据，再操作history的兄弟组件search
   function getFromHistory(item) {
     // setBus(item);
-    search.current.inp.current.value = item;
-    search.current.userSearch();
+    // search.current.inp.current.value = item;
+    // search.current.userSearch();
+    childFunc.current(item);
   }
   // 传数据给search组件
   // function toSearch() {
@@ -45,7 +47,13 @@ export default function Home() {
   return (
     <div id="home">
       <Title></Title>
-      <Search ref={search} showHistory={showHistory} hideHistory={hideHistory} addHistory={addHistory}></Search>
+      <Search
+        ref={search}
+        showHistory={showHistory}
+        hideHistory={hideHistory}
+        addHistory={addHistory}
+        childFunc={childFunc}
+      ></Search>
       {isHistory &&
         historyList.map((item, index) => (
           <History historyTitle={item} key={index} delHistory={delHistory} getFromHistory={getFromHistory}></History>
