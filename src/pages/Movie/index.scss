@@ -1,0 +1,42 @@
+.movie-item {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  padding: 12px 0;
+  border-bottom: 0.02rem solid #e5e5e5;
+  .cover {
+    width: 64px;
+    height: 90px;
+    margin-right: 10px;
+  }
+  .info {
+    .chn-title {
+      color: #222;
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .ori-title,
+    .category,
+    .release {
+      font-size: 13px;
+      color: #666;
+      margin-top: 4px;
+    }
+  }
+  .score {
+    margin-left: auto;
+    align-self: flex-start;
+    margin: 5px 15px 0 auto;
+    .num {
+      color: #fa0;
+      font-size: 16px;
+    }
+    .unit {
+      color: #fa0;
+      font-size: 14px;
+    }
+  }
+  &:last-child {
+    border-bottom-width: 0;
+  }
+}
