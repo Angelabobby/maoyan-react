@@ -13,7 +13,10 @@ export default function Home() {
   const childFunc = useRef(null);
   // 从localStorage获取历史记录
   useEffect(() => {
-    setHistoryList(JSON.parse(localStorage.getItem("historyList")));
+    let result = localStorage.getItem("historyList");
+    if (result) {
+      setHistoryList(JSON.parse(result));
+    }
   }, []);
 
   // 显示历史组件
